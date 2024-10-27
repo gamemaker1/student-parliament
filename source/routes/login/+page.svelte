@@ -8,12 +8,12 @@
 <h1>Login/Register</h1>
 <form method="post" action="?/login" use:enhance>
 	<label>
-		Username
-		<input name="username" />
+		Name
+		<input name="name" />
 	</label>
 	<label>
-		Password
-		<input type="password" name="password" />
+		Email
+		<input type="email" name="email" />
 	</label>
 	<button>Login</button>
 	<button formaction="?/register">Register</button>

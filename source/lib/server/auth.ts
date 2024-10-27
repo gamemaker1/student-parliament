@@ -14,7 +14,7 @@ function generateSessionToken(): string {
 	return token;
 }
 
-export async function createSession(userId: string): Promise<table.Session> {
+export async function createSession(userId: string): Promise {
 	const token = generateSessionToken();
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 	const session: table.Session = {
@@ -26,7 +26,7 @@ export async function createSession(userId: string): Promise<table.Session> {
 	return session;
 }
 
-export async function invalidateSession(sessionId: string): Promise<void> {
+export async function invalidateSession(sessionId: string): Promise {
 	await db.delete(table.session).where(eq(table.session.id, sessionId));
 }
 
@@ -34,7 +34,7 @@ export async function validateSession(sessionId: string) {
 	const [result] = await db
 		.select({
 			// Adjust user table here to tweak returned data
-			user: { id: table.user.id, username: table.user.username },
+			user: table.user,
 			session: table.session
 		})
 		.from(table.session)
@@ -64,4 +64,4 @@ export async function validateSession(sessionId: string) {
 	return { session, user };
 }
 
-export type SessionValidationResult = Awaited<ReturnType<typeof validateSession>>;
+export type SessionValidationResult = Awaited;
