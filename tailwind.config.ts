@@ -1,11 +1,11 @@
-import forms from '@tailwindcss/forms';
-import type { Config } from 'tailwindcss';
-import flowbite from 'flowbite/plugin';
+import forms from '@tailwindcss/forms'
+import type { Config } from 'tailwindcss'
+import flowbite from 'flowbite/plugin'
 
 export default {
 	content: [
 		'./source/**/*.{html,js,svelte,ts}',
-		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
+		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}',
 	],
 	darkMode: 'selector',
 	theme: {
@@ -22,10 +22,10 @@ export default {
 					// 600: '#EF562F',
 					// 700: '#EB4F27',
 					// 800: '#CC4522',
-					900: '#cc9200'
-				}
-			}
-		}
+					900: '#cc9200',
+				},
+			},
+		},
 	},
-	plugins: [flowbite, forms]
-} as Config;
+	plugins: [flowbite, forms],
+} as Config

@@ -1,6 +1,6 @@
-import { mdsvex } from 'mdsvex';
-import adapter from '@sveltejs/adapter-auto';
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { mdsvex } from 'mdsvex'
+import adapter from '@sveltejs/adapter-auto'
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -16,11 +16,11 @@ const config = {
 			hooks: {
 				client: 'source/hooks.client',
 				server: 'source/hooks.server',
-				universal: 'source/hooks'
-			}
-		}
+				universal: 'source/hooks',
+			},
+		},
 	},
-	extensions: ['.svelte', '.svx']
-};
+	extensions: ['.svelte', '.svx'],
+}
 
-export default config;
+export default config

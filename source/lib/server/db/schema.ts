@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
 
 export const user = sqliteTable('user', {
 	id: text('id').primaryKey(),
@@ -6,16 +6,16 @@ export const user = sqliteTable('user', {
 	email: text('email').notNull().unique(),
 	role: text('role', { enum: ['root', 'gensec', 'speaker', 'secretary', 'member', 'student'] })
 		.notNull()
-		.default('student')
-});
+		.default('student'),
+})
 
 export const session = sqliteTable('session', {
 	id: text('id').primaryKey(),
 	userId: text('user_id')
 		.notNull()
 		.references(() => user.id),
-	expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull()
-});
+	expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
+})
 
-export type Session = typeof session.$inferSelect;
-export type User = typeof user.$inferSelect;
+export type Session = typeof session.$inferSelect
+export type User = typeof user.$inferSelect

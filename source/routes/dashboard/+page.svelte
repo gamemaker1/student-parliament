@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { Button, Alert, Accordion, AccordionItem } from 'flowbite-svelte';
-	import { AngleUpOutline, AngleDownOutline } from 'flowbite-svelte-icons';
-	import { slide } from 'svelte/transition';
+	import { Button, Alert, Accordion, AccordionItem } from 'flowbite-svelte'
+	import { AngleUpOutline, AngleDownOutline } from 'flowbite-svelte-icons'
+	import { slide } from 'svelte/transition'
 
-	import { enhance } from '$app/forms';
-	import type { PageServerData } from './$types';
+	import { enhance } from '$app/forms'
+	import type { PageServerData } from './$types'
 
-	let { data } = $props();
-	let pages = ['announcements', 'issues', 'committees'];
-	let fragment = $state('announcements');
+	let { data } = $props()
+	let pages = ['announcements', 'issues', 'committees']
+	let fragment = $state('announcements')
 </script>
 
 {#snippet announcements()}
