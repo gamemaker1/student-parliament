@@ -47,7 +47,9 @@
 				<p class="text-center text-gray-400">
 					&copy; {new Date().getFullYear()} IIITH Student Parliament. All rights reserved.
 				</p>
-				<h3 class="mb-4 text-center text-lg font-semibold">parliament@students.iiit.ac.in</h3>
+				<h3 class="mb-4 text-center text-lg font-semibold">
+					parliament@students.iiit.ac.in
+				</h3>
 			</div>
 		</div>
 	</footer>
