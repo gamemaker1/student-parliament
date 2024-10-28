@@ -27,6 +27,9 @@ importers:
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.3.1(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))
+      '@sveltejs/adapter-node':
+        specifier: ^5.2.9
+        version: 5.2.9(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))
       '@sveltejs/kit':
         specifier: ^2.0.0
         version: 2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1))
@@ -723,6 +726,24 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
+  '@rollup/plugin-commonjs@28.0.1':
+    resolution: {integrity: sha512-+tNWdlWKbpB3WgBN7ijjYkq9X5uhjmcvyjEght4NmH5fAU++zfQzAJ6wumLS+dNcvwEZhKx2Z+skY8m7v0wGSA==}
+    engines: {node: '>=16.0.0 || 14 >= 14.17'}
+    peerDependencies:
+      rollup: ^2.68.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
+  '@rollup/plugin-json@6.1.0':
+    resolution: {integrity: sha512-EGI2te5ENk1coGeADSIwZ7G2Q8CJS2sF120T7jLw4xFw9n7wIOXHo+kIYRAoVpJAN+kmqZSoO3Fp4JtoNF4ReA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
   '@rollup/plugin-node-resolve@15.3.0':
     resolution: {integrity: sha512-9eO5McEICxMzJpDW9OnMYSv4Sta3hmt7VtBFz5zR9273suNOydOyq/FrGeGy+KsTRFm8w0SLVhzig2ILFT63Ag==}
     engines: {node: '>=14.0.0'}
@@ -830,6 +851,11 @@ packages:
     resolution: {integrity: sha512-5Sc7WAxYdL6q9j/+D0jJKjGREGlfIevDyHSQ2eNETHcB1TKlQWHcAo8AS8H1QdjNvSXpvOwNjykDUHPEAyGgdQ==}
     peerDependencies:
       '@sveltejs/kit': ^2.0.0
+
+  '@sveltejs/adapter-node@5.2.9':
+    resolution: {integrity: sha512-51euNrx0AcaTu8//wDfVh7xmqQSVgU52rfinE/MwvGkJa4nHPJMHmzv6+OIpmxg7gZaF6+5NVlxnieCzxLD59g==}
+    peerDependencies:
+      '@sveltejs/kit': ^2.4.0
 
   '@sveltejs/kit@2.7.3':
     resolution: {integrity: sha512-Vx7nq5MJ86I8qXYsVidC5PX6xm+uxt8DydvOdmJoyOK7LvGP18OFEG359yY+aa51t6pENvqZAMqAREQQx1OI2Q==}
@@ -985,6 +1011,9 @@ packages:
   commander@4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
+
+  commondir@1.0.1:
+    resolution: {integrity: sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==}
 
   cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
@@ -1283,6 +1312,9 @@ packages:
   is-number@7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
+
+  is-reference@1.2.1:
+    resolution: {integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==}
 
   is-reference@3.0.2:
     resolution: {integrity: sha512-v3rht/LgVcsdZa3O2Nqs+NMowLOxeOm7Ay9+/ARQ2F+qEoANRcqrjAZKGN0v8ymUetZGgkp26LTnGT7H0Qo9Pg==}
@@ -2249,6 +2281,24 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
+  '@rollup/plugin-commonjs@28.0.1(rollup@4.24.1)':
+    dependencies:
+      '@rollup/pluginutils': 5.1.3(rollup@4.24.1)
+      commondir: 1.0.1
+      estree-walker: 2.0.2
+      fdir: 6.4.2(picomatch@4.0.2)
+      is-reference: 1.2.1
+      magic-string: 0.30.12
+      picomatch: 4.0.2
+    optionalDependencies:
+      rollup: 4.24.1
+
+  '@rollup/plugin-json@6.1.0(rollup@4.24.1)':
+    dependencies:
+      '@rollup/pluginutils': 5.1.3(rollup@4.24.1)
+    optionalDependencies:
+      rollup: 4.24.1
+
   '@rollup/plugin-node-resolve@15.3.0(rollup@4.24.1)':
     dependencies:
       '@rollup/pluginutils': 5.1.3(rollup@4.24.1)
@@ -2322,6 +2372,14 @@ snapshots:
     dependencies:
       '@sveltejs/kit': 2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1))
       import-meta-resolve: 4.1.0
+
+  '@sveltejs/adapter-node@5.2.9(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))':
+    dependencies:
+      '@rollup/plugin-commonjs': 28.0.1(rollup@4.24.1)
+      '@rollup/plugin-json': 6.1.0(rollup@4.24.1)
+      '@rollup/plugin-node-resolve': 15.3.0(rollup@4.24.1)
+      '@sveltejs/kit': 2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1))
+      rollup: 4.24.1
 
   '@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1)))(svelte@5.1.3)(vite@5.4.10(@types/node@22.8.1))':
     dependencies:
@@ -2488,6 +2546,8 @@ snapshots:
   color-name@1.1.4: {}
 
   commander@4.1.1: {}
+
+  commondir@1.0.1: {}
 
   cookie@0.6.0: {}
 
@@ -2752,6 +2812,10 @@ snapshots:
   is-module@1.0.0: {}
 
   is-number@7.0.0: {}
+
+  is-reference@1.2.1:
+    dependencies:
+      '@types/estree': 1.0.6
 
   is-reference@3.0.2:
     dependencies:

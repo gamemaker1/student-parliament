@@ -1,3 +1,14 @@
+/**
+ * source/routes/dashboard/+page.server.ts
+ * ---
+ *
+ * URL  - /dashboard
+ * TYPE - SERVER
+ *
+ * Loads the data to display on the dashboard, and defines the API calls one can make from
+ * the client.
+ */
+
 import * as auth from '$lib/server/auth'
 import { fail, redirect } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types'
@@ -63,7 +74,7 @@ export const actions: Actions = {
 			return fail(401)
 		}
 		await auth.invalidateSession(event.locals.session.id)
-		event.cookies.delete(auth.sessionCookieName, { path: '/' })
+		event.cookies.delete(auth.SESSION_COOKIE, { path: '/' })
 		return redirect(302, '/login')
 	},
 }

@@ -1,5 +1,11 @@
-// See https://svelte.dev/docs/kit/types#app.d.ts
-// for information about these interfaces
+/**
+ * source/app.d.ts
+ * ---
+ *
+ * Extensions to Svelte's Typescript definitions. See https://svelte.dev/docs/kit/types#app.d.ts
+ * for information about these interfaces.
+ */
+
 declare global {
 	namespace App {
 		interface Locals {

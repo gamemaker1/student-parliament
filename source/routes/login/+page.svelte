@@ -1,3 +1,13 @@
+<!--
+- source/routes/login/+page.svelte
+- ---
+-
+- URL  - /login
+- TYPE - CLIENT
+-
+- The client-side of the login page.
+-->
+
 <script lang="ts">
 	import { enhance } from '$app/forms'
 	import type { ActionData } from './$types'

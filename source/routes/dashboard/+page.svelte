@@ -1,3 +1,13 @@
+<!--
+- source/routes/dashboard/+page.svelte
+- ---
+-
+- URL  - /dashboard
+- TYPE - CLIENT
+-
+- The frontend for the dashboard, which renders the data fetched from the server.
+-->
+
 <script lang="ts">
 	import { Button, Alert, Accordion, AccordionItem } from 'flowbite-svelte'
 	import { AngleUpOutline, AngleDownOutline } from 'flowbite-svelte-icons'

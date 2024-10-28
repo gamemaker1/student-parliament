@@ -1,7 +1,17 @@
+<!--
+- source/routes/dashboard/+layout.svelte
+- ---
+-
+- URL  - /dashboard/*
+- TYPE - LAYOUT
+-
+- This layout file contains a UI skeleton that is applied to all /dashboard/* pages.
+-->
+
 <script lang="ts">
 	import '../../app.css'
 
-	let { children, data } = $props()
+	let { children } = $props()
 </script>
 
 <svelte:head>

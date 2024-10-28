@@ -1,3 +1,13 @@
+/**
+ * source/routes/login/+page.server.ts
+ * ---
+ *
+ * URL  - /login
+ * TYPE - SERVER
+ *
+ * The API to let a user login/register.
+ */
+
 import { generateRandomString } from '@oslojs/crypto/random'
 import { fail, redirect } from '@sveltejs/kit'
 import { eq } from 'drizzle-orm'
@@ -31,7 +41,7 @@ export const actions: Actions = {
 		}
 
 		const session = await auth.createSession(existingUser.id)
-		event.cookies.set(auth.sessionCookieName, session.id, {
+		event.cookies.set(auth.SESSION_COOKIE, session.id, {
 			path: '/',
 			sameSite: 'lax',
 			httpOnly: true,
@@ -59,7 +69,7 @@ export const actions: Actions = {
 			await db.insert(table.user).values({ id: userId, name, email })
 
 			const session = await auth.createSession(userId)
-			event.cookies.set(auth.sessionCookieName, session.id, {
+			event.cookies.set(auth.SESSION_COOKIE, session.id, {
 				path: '/',
 				sameSite: 'lax',
 				httpOnly: true,

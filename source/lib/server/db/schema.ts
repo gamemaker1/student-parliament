@@ -1,3 +1,10 @@
+/**
+ * source/lib/server/db/schema.ts
+ * ---
+ *
+ * Defines and exports the database schema as a Drizzle Table, and a Typescript type.
+ */
+
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
 
 export const user = sqliteTable('user', {
