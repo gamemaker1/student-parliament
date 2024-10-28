@@ -10,6 +10,7 @@
 
 <script lang="ts">
 	import '../../app.css'
+	import { DarkMode } from 'flowbite-svelte'
 
 	let { children } = $props()
 </script>
@@ -31,6 +32,7 @@
 					<img alt="Student Parliament Logo" src="/favicon.ico" />
 					<h1 class="text-2xl font-bold">IIITH Student Parliament</h1>
 				</div>
+				<DarkMode class="text-primary-900 dark:text-primary-900" />
 			</div>
 		</div>
 	</header>
