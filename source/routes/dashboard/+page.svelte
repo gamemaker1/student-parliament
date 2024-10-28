@@ -52,7 +52,7 @@
 	<div transition:slide class="mx-12 pt-12">
 		<div class="flex justify-between">
 			<label for="search-box" class="sr-only">Search</label>
-			<div class="relative min-w-[40%]">
+			<div class="relative min-w-[60%]">
 				<div
 					class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
 				>
@@ -68,8 +68,10 @@
 				/>
 			</div>
 
-			<Button color="yellow" onclick={() => (window.location.href = '/announcements/new')}
-				>Create</Button
+			<Button
+				color="yellow"
+				class="ms-2"
+				onclick={() => (window.location.href = '/announcements/new')}>Create</Button
 			>
 		</div>
 
@@ -98,7 +100,7 @@
 	<div transition:slide class="mx-12 pt-12">
 		<div class="flex justify-between">
 			<label for="search-box" class="sr-only">Search</label>
-			<div class="relative min-w-[40%]">
+			<div class="relative min-w-[60%]">
 				<div
 					class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
 				>
@@ -114,8 +116,10 @@
 				/>
 			</div>
 
-			<Button color="yellow" onclick={() => (window.location.href = '/issues/new')}
-				>Create</Button
+			<Button
+				color="yellow"
+				class="ms-2"
+				onclick={() => (window.location.href = '/issues/new')}>Create</Button
 			>
 		</div>
 
