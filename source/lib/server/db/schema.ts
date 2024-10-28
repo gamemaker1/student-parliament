@@ -6,7 +6,7 @@
  */
 
 import { sql } from 'drizzle-orm'
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, uniqueIndex, text, integer } from 'drizzle-orm/sqlite-core'
 
 export const committee = sqliteTable('committee', {
 	id: text('id').primaryKey(),
@@ -17,10 +17,11 @@ export const user = sqliteTable('user', {
 	id: text('id').primaryKey(),
 	name: text('name').notNull(),
 	email: text('email').notNull().unique(),
-	role: text('role', { enum: ['root', 'gensec', 'speaker', 'secretary', 'member', 'student'] })
+	role: text('role', {
+		enum: ['root', 'gensec', 'speaker', 'member', 'student'],
+	})
 		.notNull()
 		.default('student'),
-	committeeId: text('committee_id').references(() => committee.id),
 })
 
 export const session = sqliteTable('session', {
@@ -64,7 +65,31 @@ export const issue = sqliteTable('issue', {
 		.notNull()
 		.default('pending'),
 	votes: integer('votes').notNull().default(0),
+	committeeId: text('committee_id')
+		.notNull()
+		.references(() => committee.id),
 })
+
+export const userCommittee = sqliteTable(
+	'user_committee',
+	{
+		userId: text('user_id')
+			.notNull()
+			.references(() => user.id),
+		committeeId: text('committee_id')
+			.notNull()
+			.references(() => committee.id),
+		role: text('role', { enum: ['secretary', 'member'] })
+			.notNull()
+			.default('member'),
+	},
+	(table) => ({
+		uniqueUserCommittee: uniqueIndex('unique_user_committee').on(
+			table.userId,
+			table.committeeId,
+		),
+	}),
+)
 
 export type Session = typeof session.$inferSelect
 export type User = typeof user.$inferSelect
