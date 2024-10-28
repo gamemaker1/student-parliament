@@ -5,7 +5,13 @@
  * Defines and exports the database schema as a Drizzle Table, and a Typescript type.
  */
 
+import { sql } from 'drizzle-orm'
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
+
+export const committee = sqliteTable('committee', {
+	id: text('id').primaryKey(),
+	name: text('name').notNull(),
+})
 
 export const user = sqliteTable('user', {
 	id: text('id').primaryKey(),
@@ -14,6 +20,7 @@ export const user = sqliteTable('user', {
 	role: text('role', { enum: ['root', 'gensec', 'speaker', 'secretary', 'member', 'student'] })
 		.notNull()
 		.default('student'),
+	committeeId: text('committee_id').references(() => committee.id),
 })
 
 export const session = sqliteTable('session', {
@@ -24,5 +31,43 @@ export const session = sqliteTable('session', {
 	expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
 })
 
+export const announcement = sqliteTable('announcement', {
+	id: text('id').primaryKey(),
+	author: text('author')
+		.notNull()
+		.references(() => user.id),
+	date: integer('created_at', { mode: 'timestamp' })
+		.notNull()
+		.default(sql`(current_timestamp)`),
+	title: text('title').notNull(),
+	content: text('content').notNull(),
+	category: text('category', { enum: ['general', 'meeting', 'event'] })
+		.notNull()
+		.default('general'),
+})
+
+export const issue = sqliteTable('issue', {
+	id: text('id').primaryKey(),
+	author: text('author')
+		.notNull()
+		.references(() => user.id),
+	created: integer('created_at', { mode: 'timestamp' })
+		.notNull()
+		.default(sql`(current_timestamp)`),
+	modified: integer('modified_at', { mode: 'timestamp' })
+		.notNull()
+		.default(sql`(current_timestamp)`),
+	title: text('title').notNull(),
+	description: text('description').notNull(),
+	body: text('body').notNull(),
+	status: text('status', { enum: ['pending', 'acknowledged', 'in progress', 'resolved'] })
+		.notNull()
+		.default('pending'),
+	votes: integer('votes').notNull().default(0),
+})
+
 export type Session = typeof session.$inferSelect
 export type User = typeof user.$inferSelect
+export type Announcement = typeof announcement.$inferSelect
+export type Issue = typeof issue.$inferSelect
+export type Committee = typeof committee.$inferSelect

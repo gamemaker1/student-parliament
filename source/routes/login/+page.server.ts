@@ -66,7 +66,7 @@ export const actions: Actions = {
 		const userId = generateUserId()
 
 		try {
-			await db.insert(table.user).values({ id: userId, name, email })
+			await db.insert(table.user).values({ id: userId, name, email, committeeId: null })
 
 			const session = await auth.createSession(userId)
 			event.cookies.set(auth.SESSION_COOKIE, session.id, {

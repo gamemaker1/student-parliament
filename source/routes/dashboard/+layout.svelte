@@ -40,7 +40,7 @@
 	</main>
 
 	<footer class="mt-12 bg-gray-800 text-white">
-		<div class="mx-auto max-w-6xl px-4 py-8">
+		<div class="mx-auto max-w-7xl px-4 py-8">
 			<div class="mt-8 border-t border-gray-700 pt-8">
 				<p class="text-center text-gray-400">
 					&copy; {new Date().getFullYear()} IIITH Student Parliament. All rights reserved.

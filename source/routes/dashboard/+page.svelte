@@ -19,6 +19,11 @@
 	let { data } = $props()
 	let pages = ['announcements', 'issues', 'committees']
 	let fragment = $state('announcements')
+	console.log(data)
+	let issueColors = {
+		resolved: 'bg-green-100 text-green-800',
+		'in progress': 'bg-purple-100 text-purple-800',
+	}
 </script>
 
 {#snippet announcements()}
@@ -28,12 +33,12 @@
 				<div class="rounded-lg bg-white p-6 shadow">
 					<div class="mb-4 flex items-start justify-between">
 						<h2 class="text-xl font-semibold">{announcement.title}</h2>
-						<span class="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800">
+						<span class="rounded-full bg-blue-100 px-3 py-1 text-sm capitalize text-blue-800">
 							{announcement.category}
 						</span>
 					</div>
 					<p class="mb-2 text-gray-600">{announcement.content}</p>
-					<p class="text-sm text-gray-500">Posted on {announcement.date}</p>
+					<p class="text-sm text-gray-500">Posted on {announcement.date.toLocaleString('en-IN')}</p>
 				</div>
 			{/each}
 		</div>
@@ -50,9 +55,7 @@
 							<h2 class="text-xl font-semibold">
 								{issue.title} &nbsp;
 								<span
-									class="rounded-full px-3 py-1 text-sm {issue.status === 'Resolved'
-										? 'bg-green-100 text-green-800'
-										: 'bg-purple-100 text-purple-800'}"
+									class="rounded-full px-3 py-1 text-sm capitalize {issueColors[issue.status]}"
 									style="font-family: 'Rubik'; font-weight: normal"
 								>
 									{issue.status}
@@ -88,11 +91,11 @@
 								>
 									<div>
 										<p class="font-medium text-gray-900">{member.name}</p>
-										<p class="text-sm text-gray-600">{member.role}</p>
+										<p class="text-sm capitalize text-gray-600">{member.role}</p>
 									</div>
 									<div class="text-sm text-gray-500">
-										{#if member.contact}
-											<a href="mailto:{member.contact}" class="text-purple-600 hover:underline">
+										{#if member.email}
+											<a href="mailto:{member.email}" class="text-purple-600 hover:underline">
 												Contact
 											</a>
 										{/if}
