@@ -85,13 +85,15 @@ export const actions: Actions = {
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 function generateUserId(length = 21): string {
-	return generateRandomString({ read: (bytes) => crypto.getRandomValues(bytes) }, alphabet, length)
+	return generateRandomString(
+		{ read: (bytes) => crypto.getRandomValues(bytes) },
+		alphabet,
+		length,
+	)
 }
 
 function validateName(name: unknown): name is string {
-	return (
-		typeof name === 'string' && name.length >= 3 && name.length <= 31 && /^[a-z0-9_-]+$/.test(name)
-	)
+	return typeof name === 'string' && name.length >= 3 && name.length <= 31
 }
 
 function validateEmail(email: unknown): email is string {
