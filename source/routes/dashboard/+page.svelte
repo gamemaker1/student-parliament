@@ -10,7 +10,7 @@
 
 <script lang="ts">
 	import { Button, Alert, Accordion, AccordionItem } from 'flowbite-svelte'
-	import { AngleUpOutline, AngleDownOutline } from 'flowbite-svelte-icons'
+	import { SearchOutline } from 'flowbite-svelte-icons'
 	import { slide } from 'svelte/transition'
 
 	import { enhance } from '$app/forms'
@@ -19,7 +19,7 @@
 	let { data } = $props()
 	let pages = ['announcements', 'issues', 'committees']
 	let fragment = $state('announcements')
-	console.log(data)
+
 	let issueColors = {
 		resolved: 'bg-green-100 text-green-800',
 		'in progress': 'bg-purple-100 text-purple-800',
@@ -28,7 +28,27 @@
 
 {#snippet announcements()}
 	<div transition:slide class="mx-12 pt-12">
-		<div class="grid gap-6">
+		<form class="flex justify-between">
+			<label for="search-box" class="sr-only">Search</label>
+			<div class="relative min-w-[40%]">
+				<div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+					<SearchOutline />
+				</div>
+				<input
+					type="text"
+					id="search-box"
+					class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pb-2 ps-10 pt-3 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+					placeholder="Search announcements..."
+					required
+				/>
+			</div>
+
+			<Button color="yellow" onclick={() => (window.location.href = '/announcements/new')}
+				>Create</Button
+			>
+		</form>
+
+		<div class="mt-6 grid gap-6">
 			{#each data.announcements as announcement}
 				<div class="rounded-lg bg-white p-6 shadow">
 					<div class="mb-4 flex items-start justify-between">
