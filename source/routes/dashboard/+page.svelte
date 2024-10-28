@@ -18,7 +18,14 @@
 
 	let { data } = $props()
 	let pages = ['announcements', 'issues', 'committees']
-	let fragment = $state('announcements')
+	let initialState = {
+		fragment:
+			typeof localStorage != 'undefined'
+				? localStorage.getItem('fragment') ?? 'announcements'
+				: 'announcements',
+	}
+
+	let fragment = $state(initialState.fragment)
 	let announcementFilter = $state('')
 	let filteredAnnouncements = $derived(
 		data.announcements.filter(({ title }) => title.includes(announcementFilter)),
@@ -195,7 +202,10 @@
 		<div class="flex space-x-8 p-4">
 			{#each pages as page}
 				<button
-					onclick={() => (fragment = page)}
+					onclick={() => {
+						fragment = page
+						localStorage.setItem('fragment', page)
+					}}
 					class="text-md rounded-md px-3 py-2 font-medium capitalize text-gray-700 transition-colors {fragment ===
 					page
 						? 'bg-primary-100'
