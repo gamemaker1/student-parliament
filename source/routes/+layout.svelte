@@ -1,15 +1,15 @@
 <!--
-- source/routes/dashboard/+layout.svelte
+- source/routes/+layout.svelte
 - ---
 -
-- URL  - /dashboard/*
+- URL  - /
 - TYPE - LAYOUT
 -
-- This layout file contains a UI skeleton that is applied to all /dashboard/* pages.
+- This layout file contains a UI skeleton that is applied to all pages.
 -->
 
 <script lang="ts">
-	import '../../app.css'
+	import '../app.css'
 	import { DarkMode } from 'flowbite-svelte'
 
 	let { children } = $props()
