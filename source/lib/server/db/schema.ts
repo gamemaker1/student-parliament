@@ -39,7 +39,7 @@ export const announcement = sqliteTable('announcement', {
 		.references(() => user.id),
 	date: integer('created_at', { mode: 'timestamp' })
 		.notNull()
-		.default(sql`(current_timestamp)`),
+		.default(sql`(unixepoch())`),
 	title: text('title').notNull(),
 	content: text('content').notNull(),
 	category: text('category', { enum: ['general', 'meeting', 'event'] })
@@ -54,12 +54,11 @@ export const issue = sqliteTable('issue', {
 		.references(() => user.id),
 	created: integer('created_at', { mode: 'timestamp' })
 		.notNull()
-		.default(sql`(current_timestamp)`),
+		.default(sql`(unixepoch())`),
 	modified: integer('modified_at', { mode: 'timestamp' })
 		.notNull()
-		.default(sql`(current_timestamp)`),
+		.default(sql`(unixepoch())`),
 	title: text('title').notNull(),
-	description: text('description').notNull(),
 	body: text('body').notNull(),
 	status: text('status', { enum: ['pending', 'acknowledged', 'in progress', 'resolved'] })
 		.notNull()
