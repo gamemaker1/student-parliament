@@ -28,15 +28,16 @@
 	let fragment = $state(initialState.fragment)
 	let announcementFilter = $state('')
 	let filteredAnnouncements = $derived(
-		data.announcements.filter(({ title }) => title.includes(announcementFilter)),
+		data.announcements.filter(({ title }) =>
+			title.toLowerCase().includes(announcementFilter.toLowerCase()),
+		),
 	)
 	let issueFilter = $state('')
 	let filteredIssues = $derived(
 		data.issues.filter(
-			({ title, description, committee }) =>
-				title.includes(issueFilter) ||
-				description.includes(issueFilter) ||
-				committee.name.includes(issueFilter),
+			({ title, committee }) =>
+				title.toLowerCase().includes(issueFilter.toLowerCase()) ||
+				committee.name.toLowerCase().includes(issueFilter.toLowerCase()),
 		),
 	)
 
@@ -151,8 +152,7 @@
 							<span class="text-gray-700">{issue.votes} upvotes</span>
 						</div>
 					</div>
-					<p class="mb-4 text-gray-600">{issue.description}</p>
-					<p class="text-sm text-gray-500">
+					<p class="py-1 text-sm text-gray-500">
 						Last updated on {issue.modified.toLocaleString('en-IN')}
 					</p>
 				</div>

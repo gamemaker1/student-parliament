@@ -16,8 +16,19 @@ import { db } from '$lib/server/db'
 import * as table from '$lib/server/db/schema'
 import type { Actions, PageServerLoad } from './$types'
 
+const announcementQuery = {
+	id: table.announcement.id,
+	date: table.announcement.date,
+	title: table.announcement.title,
+	category: table.announcement.category,
+}
+
 const issueQuery = {
-	...table.issue,
+	id: table.issue.id,
+	modified: table.issue.modified,
+	title: table.issue.title,
+	status: table.issue.status,
+	votes: table.issue.votes,
 	committee: table.committee,
 }
 
@@ -45,7 +56,11 @@ export const load: PageServerLoad = async (event) => {
 
 	// Load the announcements, issues and committees stored in the database.
 	const [announcements, issues, committees] = await Promise.all([
-		db.select().from(table.announcement).orderBy(desc(table.announcement.date)).limit(20),
+		db
+			.select(announcementQuery)
+			.from(table.announcement)
+			.orderBy(desc(table.announcement.date))
+			.limit(20),
 		db
 			.select(issueQuery)
 			.from(table.issue)
