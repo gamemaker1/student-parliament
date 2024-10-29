@@ -20,7 +20,7 @@ export const SESSION_COOKIE = 'auth-session'
  * @private
  */
 function generateSessionToken(): string {
-	const bytes = crypto.getRandomValues(new Uint8Array(20))
+	const bytes = crypto.getRandomValues(new Uint8Array(21))
 	const token = encodeBase32LowerCaseNoPadding(bytes)
 	return token
 }
