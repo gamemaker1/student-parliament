@@ -1,11 +1,11 @@
 /**
- * source/routes/issues/new/+page.server.ts
+ * source/routes/announcements/new/+page.server.ts
  * ---
  *
- * URL  - /issues/new
+ * URL  - /announcements/new
  * TYPE - SERVER
  *
- * Defines the API call one can make from the client to create a new issue.
+ * Defines the API call one can make from the client to create a new announcement.
  */
 
 import { fail, redirect } from '@sveltejs/kit'
@@ -16,20 +16,17 @@ import { db } from '$lib/server/db'
 import * as table from '$lib/server/db/schema'
 import type { Actions, PageServerLoad } from './$types'
 
+const categories = ['general', 'meeting', 'event']
+
 export const load: PageServerLoad = async (event) => {
 	// Make sure the user is authenticated. If not, redirect them to the login page.
 	if (!event.locals.user) {
 		return redirect(302, '/login')
 	}
 
-	const committees = await db
-		.select()
-		.from(table.committee)
-		.orderBy(asc(table.committee.name))
-
 	return {
 		user: event.locals.user,
-		committees,
+		categories,
 	}
 }
 
@@ -42,25 +39,24 @@ function generateId(): string {
 export const actions: Actions = {
 	create: async (event) => {
 		const formData = await event.request.formData()
-		const issue = {
+		const announcement = {
 			id: generateId(),
 			title: formData.get('title'),
-			body: formData.get('body'),
-			committeeId: formData.get('committeeId'),
+			content: formData.get('content'),
+			category: formData.get('category'),
 			author: event.locals.user.id,
 		}
 
 		if (
-			typeof issue.title != 'string' ||
-			typeof issue.body != 'string' ||
-			typeof issue.committeeId != 'string'
+			typeof announcement.title != 'string' ||
+			typeof announcement.content != 'string' ||
+			typeof announcement.category != 'string' ||
+			!categories.includes(announcement.category)
 		) {
-			return fail(400, 'Invalid title/body/committee')
+			return fail(400, 'Invalid title/content/category')
 		}
 
-		// TODO: add check for committee ID validity, but try not to use another database call.
-
-		await db.insert(table.issue).values(issue)
+		await db.insert(table.announcement).values(announcement)
 		return redirect(302, '/')
 	},
 }

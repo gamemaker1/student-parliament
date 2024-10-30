@@ -1,11 +1,11 @@
 <!--
-- source/routes/issues/new/+page.svelte
+- source/routes/announcements/new/+page.svelte
 - ---
 -
-- URL  - /issues/new
+- URL  - /announcements/new
 - TYPE - CLIENT
 -
-- This page lets the user create a new issue.
+- This page lets the user create a new announcement.
 -->
 
 <script lang="ts">
@@ -18,12 +18,12 @@
 	import type { PageServerData, ActionData } from './$types'
 
 	let title = $state('')
-	let body = $state('')
-	let committee = $state('')
+	let content = $state('')
+	let category = $state('')
 
 	let { data, form } = $props()
-	let committees = data.committees.map(({ id, name }) => {
-		return { value: id, name }
+	let categories = data.categories.map((name) => {
+		return { value: name, name: name[0].toUpperCase() + name.slice(1) }
 	})
 
 	let editorConfig = {
@@ -64,7 +64,7 @@
 				/>
 			</div>
 			<div class="text-md py-2 font-medium capitalize text-gray-700">
-				<span>Create Issue</span>
+				<span>Create Announcement</span>
 			</div>
 		</div>
 	</div>
@@ -78,25 +78,25 @@
 		</div>
 		<div class="mb-6">
 			<Label>
-				Committee
+				Category
 				<Select
-					id="committee"
-					name="committeeId"
+					id="category"
+					name="category"
 					class="mt-2 font-normal"
-					items={committees}
-					bind:value={committee}
+					items={categories}
+					bind:value={category}
 				/>
 			</Label>
 		</div>
 	</div>
 
 	<div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-		<InkMde bind:value={body} options={editorConfig} />
+		<InkMde bind:value={content} options={editorConfig} />
 	</div>
 
 	<div class="mb-6">
 		<Button color="yellow" class="right-0" type="submit">Create</Button>
 	</div>
 
-	<input class="hidden" name="body" value={body} />
+	<input class="hidden" name="content" value={content} />
 </form>
