@@ -50,12 +50,15 @@ export const actions: Actions = {
 			author: event.locals.user.id,
 		}
 
-		if (
-			typeof issue.title != 'string' ||
-			typeof issue.body != 'string' ||
-			typeof issue.committeeId != 'string'
-		) {
-			return fail(400, 'Invalid title/body/committee')
+		const invalid = {
+			title: typeof issue.title != 'string' || !issue.title?.length,
+			body: typeof issue.body != 'string',
+			committeeId: typeof issue.committeeId != 'string' || !issue.committeeId?.length,
+		}
+		if (invalid.title || invalid.body || invalid.committeeId) {
+			return fail(400, {
+				error: { invalid },
+			})
 		}
 
 		// TODO: add check for committee ID validity, but try not to use another database call.

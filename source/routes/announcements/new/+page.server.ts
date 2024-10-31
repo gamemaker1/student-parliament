@@ -47,16 +47,20 @@ export const actions: Actions = {
 			author: event.locals.user.id,
 		}
 
-		if (
-			typeof announcement.title != 'string' ||
-			typeof announcement.content != 'string' ||
-			typeof announcement.category != 'string' ||
-			!categories.includes(announcement.category)
-		) {
-			return fail(400, 'Invalid title/content/category')
+		const invalid = {
+			title: typeof announcement.title != 'string' || !announcement.title?.length,
+			content: typeof announcement.content != 'string',
+			category:
+				typeof announcement.category != 'string' ||
+				!categories.includes(announcement.category),
+		}
+		if (invalid.title || invalid.content || invalid.category) {
+			return fail(400, {
+				error: { invalid },
+			})
 		}
 
 		await db.insert(table.announcement).values(announcement)
-		return redirect(302, '/')
+		return redirect(302, '/dashboard')
 	},
 }

@@ -9,7 +9,7 @@
 -->
 
 <script lang="ts">
-	import { Button, Label, Input, Select } from 'flowbite-svelte'
+	import { Button, Label, Input, Select, Helper } from 'flowbite-svelte'
 	import { AngleLeftOutline } from 'flowbite-svelte-icons'
 	import InkMde from 'ink-mde/svelte'
 	import * as dom from 'isomorphic-dompurify'
@@ -75,6 +75,11 @@
 		<div class="mb-6">
 			<Label for="title" class="mb-2 block">Title</Label>
 			<Input id="title" name="title" class="w-full" placeholder="Title" />
+			{#if form?.error?.invalid?.title}
+				<Helper class="mt-2" color="red">
+					<span>Please enter a valid title.</span>
+				</Helper>
+			{/if}
 		</div>
 		<div class="mb-6">
 			<Label>
@@ -87,11 +92,21 @@
 					bind:value={committee}
 				/>
 			</Label>
+			{#if form?.error?.invalid?.committeeId}
+				<Helper class="mt-2" color="red">
+					<span>Please select a valid committee.</span>
+				</Helper>
+			{/if}
 		</div>
 	</div>
 
 	<div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
 		<InkMde bind:value={body} options={editorConfig} />
+		{#if form?.error?.invalid?.body}
+			<Helper class="mt-2" color="red">
+				<span>Please enter valid content.</span>
+			</Helper>
+		{/if}
 	</div>
 
 	<div class="mb-6">
