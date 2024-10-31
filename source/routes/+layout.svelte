@@ -24,9 +24,9 @@
 	/>
 </svelte:head>
 
-<div class="sticky top-0 mx-auto flex h-screen flex-col justify-between bg-gray-50">
-	<header class="bg-primary-400 p-4">
-		<div class="mx-auto">
+<div class="flex h-dvh flex-col">
+	<header class="m-0 w-full bg-primary-400 p-4">
+		<div class="w-full">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center space-x-2">
 					<img alt="Student Parliament Logo" src="/favicon.ico" />
@@ -37,15 +37,15 @@
 		</div>
 	</header>
 
-	<main class="mb-auto">
+	<main class="flex-1 bg-white pb-12 dark:bg-gray-800">
 		{@render children()}
 	</main>
 
-	<footer class="inset-x-0 bottom-0 mt-12 bg-gray-800 text-white">
+	<footer class="inset-x-0 bottom-0 bg-gray-800 text-white dark:bg-gray-700">
 		<div class="mx-auto max-w-7xl px-2 py-8">
-			<div class="mt-4 border-t border-gray-700 pt-4">
+			<div class="mt-4 border-t border-gray-700 pt-4 dark:border-gray-500">
 				<p class="text-center text-gray-400">
-					&copy; {new Date().getFullYear()} IIITH Student Parliament. All rights reserved.
+					&copy; IIITH Student Parliament. All rights reserved.
 				</p>
 				<h3 class="mb-2 text-center text-lg font-semibold">
 					parliament@students.iiit.ac.in

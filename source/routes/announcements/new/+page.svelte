@@ -22,14 +22,17 @@
 	let category = $state('')
 
 	let { data, form } = $props()
-	console.log(form)
 	let categories = data.categories.map((name) => {
 		return { value: name, name: name[0].toUpperCase() + name.slice(1) }
+	})
+	let darkMode = false
+	$effect(() => {
+		darkMode = document.documentElement.className.includes('dark')
 	})
 
 	let editorConfig = {
 		interface: {
-			appearance: 'light',
+			appearance: darkMode ? 'dark' : 'light',
 			attribution: false,
 			autocomplete: false,
 			images: true,
@@ -55,7 +58,7 @@
 	}
 </script>
 
-<nav class="sticky top-0 z-10 bg-white shadow">
+<nav class="sticky top-0 z-10 bg-white shadow dark:bg-gray-700">
 	<div class="mx-auto">
 		<div class="flex space-x-4 p-4">
 			<div class="py-2">
@@ -64,7 +67,7 @@
 					class="text-primary-500"
 				/>
 			</div>
-			<div class="text-md py-2 font-medium capitalize text-gray-700">
+			<div class="text-md py-2 font-medium capitalize text-gray-700 dark:text-gray-50">
 				<span>Create Announcement</span>
 			</div>
 		</div>

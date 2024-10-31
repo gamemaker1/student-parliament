@@ -9,7 +9,7 @@
 -->
 
 <script lang="ts">
-	import { Button, Alert, Accordion, AccordionItem } from 'flowbite-svelte'
+	import { Alert, Accordion, AccordionItem, Button, Helper, Input } from 'flowbite-svelte'
 	import { SearchOutline } from 'flowbite-svelte-icons'
 	import { slide } from 'svelte/transition'
 
@@ -21,7 +21,7 @@
 	let initialState = {
 		fragment:
 			typeof localStorage != 'undefined'
-				? (localStorage.getItem('fragment') ?? 'announcements')
+				? localStorage.getItem('fragment') ?? 'announcements'
 				: 'announcements',
 	}
 
@@ -53,31 +53,26 @@
 </script>
 
 {#snippet announcements()}
-	<div transition:slide class="mx-12 pt-12">
+	<div transition:slide class="mx-6 pt-12 md:mx-12">
 		<div class="flex justify-between">
-			<label for="search-box" class="sr-only">Search</label>
-			<div class="relative min-w-[60%]">
-				<div
-					class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
-				>
-					<SearchOutline class="text-primary" />
-				</div>
-				<input
-					type="text"
-					id="search-box"
-					class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pb-2 ps-10 pt-3 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-					placeholder="Search announcements..."
+			<div class="flex w-full flex-col">
+				<Input
+					id="search"
 					bind:value={announcementFilter}
-					required
-				/>
+					placeholder="Search announcements..."
+				>
+					<SearchOutline slot="left" class="h-5 w-5 text-gray-500 dark:text-gray-400" />
+				</Input>
+				<Helper class="mt-2 text-gray-700">
+					<span>
+						{filteredAnnouncements.length} announcement{filteredAnnouncements.length == 1
+							? ''
+							: 's'}
+					</span>
+				</Helper>
 			</div>
 
 			<div>
-				<span class="py-2 text-gray-500">
-					{filteredAnnouncements.length} announcement{filteredAnnouncements.length == 1
-						? ''
-						: 's'}
-				</span>
 				<Button
 					color="yellow"
 					class="ms-4"
@@ -86,53 +81,43 @@
 			</div>
 		</div>
 
-		<div class="h-screen">
-			<div class="mt-6 grid gap-6 px-2">
-				{#each filteredAnnouncements as announcement}
-					<div class="rounded-lg bg-white p-6 shadow">
-						<div class="mb-2 flex items-start justify-between">
-							<h2 class="text-xl font-semibold">{announcement.title}</h2>
-							<span
-								class="rounded-full bg-blue-100 px-3 py-1 text-sm capitalize text-blue-800"
-							>
-								{announcement.category}
-							</span>
-						</div>
-						<p class="mb-4 text-gray-600">{announcement.content}</p>
-						<p class="text-sm text-gray-500">
-							Posted on {announcement.date.toLocaleString('en-IN')}
-						</p>
+		<div class="mt-6 grid gap-6 px-2">
+			{#each filteredAnnouncements as announcement}
+				<div class="rounded-lg bg-white p-6 shadow dark:bg-gray-700">
+					<div class="mb-2 flex items-start justify-between">
+						<h2 class="text-xl font-semibold text-gray-800 dark:text-gray-50">
+							{announcement.title}
+						</h2>
+						<span
+							class="rounded-full bg-blue-100 px-3 py-1 text-sm capitalize text-blue-800"
+						>
+							{announcement.category}
+						</span>
 					</div>
-				{/each}
-			</div>
+					<p class="text-sm text-gray-500 dark:text-gray-400">
+						Posted on {announcement.date.toLocaleString('en-IN')}
+					</p>
+				</div>
+			{/each}
 		</div>
 	</div>
 {/snippet}
 
 {#snippet issues()}
-	<div transition:slide class="mx-12 pt-12">
+	<div transition:slide class="mx-6 pt-12 md:mx-12">
 		<div class="flex justify-between">
-			<label for="search-box" class="sr-only">Search</label>
-			<div class="relative min-w-[60%]">
-				<div
-					class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
-				>
-					<SearchOutline class="text-primary" />
-				</div>
-				<input
-					type="text"
-					id="search-box"
-					class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pb-2 ps-10 pt-3 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-					placeholder="Search issues..."
-					bind:value={issueFilter}
-					required
-				/>
+			<div class="flex w-full flex-col">
+				<Input id="search" bind:value={issueFilter} placeholder="Search issues...">
+					<SearchOutline slot="left" class="h-5 w-5 text-gray-500 dark:text-gray-400" />
+				</Input>
+				<Helper class="mt-2 text-gray-700">
+					<span>
+						{filteredIssues.length} issue{filteredIssues.length == 1 ? '' : 's'}
+					</span>
+				</Helper>
 			</div>
 
 			<div>
-				<span class="py-2 text-gray-500">
-					{filteredIssues.length} issue{filteredIssues.length == 1 ? '' : 's'}
-				</span>
 				<Button
 					color="yellow"
 					class="ms-4"
@@ -141,66 +126,66 @@
 			</div>
 		</div>
 
-		<div class="h-screen">
-			<div class="mt-6 grid gap-6 px-2">
-				{#each filteredIssues as issue}
-					<div class="rounded-lg bg-white p-6 shadow">
-						<div class="mb-2 flex items-start justify-between">
-							<div>
-								<h2 class="text-xl font-semibold">
-									{issue.title} &nbsp;
-									<span
-										class="rounded-full px-3 py-1 text-sm capitalize {issueColors[
-											issue.status
-										]}"
-										style="font-family: 'Rubik'; font-weight: normal"
-									>
-										{issue.status}
-									</span>
-									<span
-										class="rounded-full border border-gray-300 px-3 py-1 text-sm capitalize"
-										style="font-family: 'Rubik'; font-weight: normal"
-									>
-										{issue.committee.name}
-									</span>
-								</h2>
-							</div>
+		<div class="mt-6 grid gap-6 px-2">
+			{#each filteredIssues as issue}
+				<div class="rounded-lg bg-white p-6 shadow dark:bg-gray-700">
+					<div class="flex items-start justify-between justify-items-end">
+						<h2 class="mb-2 text-xl font-semibold text-gray-800 dark:text-gray-50">
+							{issue.title}
+						</h2>
 
-							<div>
-								<span class="text-gray-700">{issue.votes} upvotes</span>
-							</div>
+						<div>
+							<span
+								class="truncate rounded-full px-3 py-1 text-sm capitalize {issueColors[
+									issue.status
+								]}"
+							>
+								{issue.status}
+							</span>
+							<span
+								class="truncate rounded-full border border-gray-300 px-3 py-1 text-sm capitalize dark:text-white"
+							>
+								{issue.committee.name}
+							</span>
+							<span
+								class="hidden truncate rounded-full border border-primary-100 px-3 py-1 text-sm dark:text-white md:inline"
+							>
+								{issue.votes} votes
+							</span>
 						</div>
-						<p class="py-1 text-sm text-gray-500">
-							Last updated on {issue.modified.toLocaleString('en-IN')}
-						</p>
 					</div>
-				{/each}
-			</div>
+					<p class="py-1 text-sm text-gray-500 dark:text-gray-400">
+						Last updated on {issue.modified.toLocaleString('en-IN')}
+					</p>
+				</div>
+			{/each}
 		</div>
 	</div>
 {/snippet}
 
 {#snippet committees()}
-	<div transition:slide class="mx-12 pt-12">
-		<Accordion multiple class="bg-white">
+	<div transition:slide class="pt-12">
+		<Accordion multiple class="mx-6  md:mx-12">
 			{#each data.committees as committee}
 				<AccordionItem>
-					<span class="text-xl font-medium text-gray-900" slot="header">
+					<span class="text-xl font-medium text-gray-900 dark:text-gray-50" slot="header">
 						{committee.name}
 					</span>
-					<div class="border-t p-4">
+					<div class="p-4">
 						<div class="space-y-2">
 							{#each committee.members as member}
 								<div
-									class="flex items-center justify-between rounded bg-gray-50 p-3 transition-colors hover:bg-gray-100"
+									class="flex items-center justify-between rounded bg-gray-100 p-3 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-50 dark:hover:bg-gray-600"
 								>
 									<div>
-										<p class="font-medium text-gray-900">{member.name}</p>
-										<p class="text-sm capitalize text-gray-600">
+										<p class="font-medium text-gray-900 dark:text-gray-50">
+											{member.name}
+										</p>
+										<p class="text-sm capitalize text-gray-600 dark:text-gray-200">
 											{member.role}
 										</p>
 									</div>
-									<div class="text-sm text-gray-500">
+									<div class="text-sm text-gray-500 dark:text-gray-400">
 										{#if member.email}
 											<a
 												href="mailto:{member.email}"
@@ -220,7 +205,7 @@
 	</div>
 {/snippet}
 
-<nav class="sticky top-0 z-10 bg-white shadow">
+<nav class="sticky top-0 z-10 bg-white shadow dark:bg-gray-700">
 	<div class="mx-auto">
 		<div class="flex space-x-8 p-4">
 			{#each pages as page}
@@ -229,10 +214,10 @@
 						fragment = page
 						localStorage.setItem('fragment', page)
 					}}
-					class="text-md rounded-md px-3 py-2 font-medium capitalize text-gray-700 transition-colors {fragment ===
+					class="text-md truncate rounded-md px-3 py-2 font-medium capitalize text-gray-700 transition-colors dark:text-white {fragment ===
 					page
-						? 'bg-primary-100'
-						: 'hover:bg-gray-50'}"
+						? 'bg-primary-100 dark:bg-yellow-400'
+						: 'hover:bg-gray-50 dark:hover:bg-gray-500'}"
 				>
 					{page}
 				</button>

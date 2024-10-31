@@ -25,10 +25,15 @@
 	let committees = data.committees.map(({ id, name }) => {
 		return { value: id, name }
 	})
+	let darkMode = false
+	$effect(() => {
+		darkMode = document.documentElement.className.includes('dark')
+	})
 
 	let editorConfig = {
 		interface: {
 			appearance: 'light',
+			appearance: darkMode ? 'dark' : 'light',
 			attribution: false,
 			autocomplete: false,
 			images: true,
@@ -54,7 +59,7 @@
 	}
 </script>
 
-<nav class="sticky top-0 z-10 bg-white shadow">
+<nav class="sticky top-0 z-10 bg-white shadow dark:bg-gray-700">
 	<div class="mx-auto">
 		<div class="flex space-x-4 p-4">
 			<div class="py-2">
