@@ -21,23 +21,26 @@
 	let initialState = {
 		fragment:
 			typeof localStorage != 'undefined'
-				? localStorage.getItem('fragment') ?? 'announcements'
+				? (localStorage.getItem('fragment') ?? 'announcements')
 				: 'announcements',
 	}
 
 	let fragment = $state(initialState.fragment)
 	let announcementFilter = $state('')
 	let filteredAnnouncements = $derived(
-		data.announcements.filter(({ title }) =>
-			title.toLowerCase().includes(announcementFilter.toLowerCase()),
+		data.announcements.filter(
+			({ title, category }) =>
+				title.toLowerCase().includes(announcementFilter.toLowerCase()) ||
+				category.toLowerCase().includes(announcementFilter.toLowerCase()),
 		),
 	)
 	let issueFilter = $state('')
 	let filteredIssues = $derived(
 		data.issues.filter(
-			({ title, committee }) =>
+			({ title, committee, status }) =>
 				title.toLowerCase().includes(issueFilter.toLowerCase()) ||
-				committee.name.toLowerCase().includes(issueFilter.toLowerCase()),
+				committee.name.toLowerCase().includes(issueFilter.toLowerCase()) ||
+				status.toLowerCase().includes(issueFilter.toLowerCase()),
 		),
 	)
 
@@ -69,30 +72,39 @@
 				/>
 			</div>
 
-			<Button
-				color="yellow"
-				class="ms-2"
-				onclick={() => (window.location.href = '/announcements/new')}>Create</Button
-			>
+			<div>
+				<span class="py-2 text-gray-500">
+					{filteredAnnouncements.length} announcement{filteredAnnouncements.length == 1
+						? ''
+						: 's'}
+				</span>
+				<Button
+					color="yellow"
+					class="ms-4"
+					onclick={() => (window.location.href = '/announcements/new')}>Create</Button
+				>
+			</div>
 		</div>
 
-		<div class="mt-6 grid gap-6">
-			{#each filteredAnnouncements as announcement}
-				<div class="rounded-lg bg-white p-6 shadow">
-					<div class="mb-2 flex items-start justify-between">
-						<h2 class="text-xl font-semibold">{announcement.title}</h2>
-						<span
-							class="rounded-full bg-blue-100 px-3 py-1 text-sm capitalize text-blue-800"
-						>
-							{announcement.category}
-						</span>
+		<div class="h-screen">
+			<div class="mt-6 grid gap-6 px-2">
+				{#each filteredAnnouncements as announcement}
+					<div class="rounded-lg bg-white p-6 shadow">
+						<div class="mb-2 flex items-start justify-between">
+							<h2 class="text-xl font-semibold">{announcement.title}</h2>
+							<span
+								class="rounded-full bg-blue-100 px-3 py-1 text-sm capitalize text-blue-800"
+							>
+								{announcement.category}
+							</span>
+						</div>
+						<p class="mb-4 text-gray-600">{announcement.content}</p>
+						<p class="text-sm text-gray-500">
+							Posted on {announcement.date.toLocaleString('en-IN')}
+						</p>
 					</div>
-					<p class="mb-4 text-gray-600">{announcement.content}</p>
-					<p class="text-sm text-gray-500">
-						Posted on {announcement.date.toLocaleString('en-IN')}
-					</p>
-				</div>
-			{/each}
+				{/each}
+			</div>
 		</div>
 	</div>
 {/snippet}
@@ -117,46 +129,53 @@
 				/>
 			</div>
 
-			<Button
-				color="yellow"
-				class="ms-2"
-				onclick={() => (window.location.href = '/issues/new')}>Create</Button
-			>
+			<div>
+				<span class="py-2 text-gray-500">
+					{filteredIssues.length} issue{filteredIssues.length == 1 ? '' : 's'}
+				</span>
+				<Button
+					color="yellow"
+					class="ms-4"
+					onclick={() => (window.location.href = '/issues/new')}>Create</Button
+				>
+			</div>
 		</div>
 
-		<div class="mt-6 grid gap-6">
-			{#each filteredIssues as issue}
-				<div class="rounded-lg bg-white p-6 shadow">
-					<div class="mb-2 flex items-start justify-between">
-						<div>
-							<h2 class="text-xl font-semibold">
-								{issue.title} &nbsp;
-								<span
-									class="rounded-full px-3 py-1 text-sm capitalize {issueColors[
-										issue.status
-									]}"
-									style="font-family: 'Rubik'; font-weight: normal"
-								>
-									{issue.status}
-								</span>
-								<span
-									class="rounded-full border border-gray-300 px-3 py-1 text-sm capitalize"
-									style="font-family: 'Rubik'; font-weight: normal"
-								>
-									{issue.committee.name}
-								</span>
-							</h2>
-						</div>
+		<div class="h-screen">
+			<div class="mt-6 grid gap-6 px-2">
+				{#each filteredIssues as issue}
+					<div class="rounded-lg bg-white p-6 shadow">
+						<div class="mb-2 flex items-start justify-between">
+							<div>
+								<h2 class="text-xl font-semibold">
+									{issue.title} &nbsp;
+									<span
+										class="rounded-full px-3 py-1 text-sm capitalize {issueColors[
+											issue.status
+										]}"
+										style="font-family: 'Rubik'; font-weight: normal"
+									>
+										{issue.status}
+									</span>
+									<span
+										class="rounded-full border border-gray-300 px-3 py-1 text-sm capitalize"
+										style="font-family: 'Rubik'; font-weight: normal"
+									>
+										{issue.committee.name}
+									</span>
+								</h2>
+							</div>
 
-						<div>
-							<span class="text-gray-700">{issue.votes} upvotes</span>
+							<div>
+								<span class="text-gray-700">{issue.votes} upvotes</span>
+							</div>
 						</div>
+						<p class="py-1 text-sm text-gray-500">
+							Last updated on {issue.modified.toLocaleString('en-IN')}
+						</p>
 					</div>
-					<p class="py-1 text-sm text-gray-500">
-						Last updated on {issue.modified.toLocaleString('en-IN')}
-					</p>
-				</div>
-			{/each}
+				{/each}
+			</div>
 		</div>
 	</div>
 {/snippet}

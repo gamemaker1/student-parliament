@@ -24,7 +24,7 @@
 	/>
 </svelte:head>
 
-<div class="mx-auto flex h-screen flex-col justify-between bg-gray-50">
+<div class="sticky top-0 mx-auto flex h-screen flex-col justify-between bg-gray-50">
 	<header class="bg-primary-400 p-4">
 		<div class="mx-auto">
 			<div class="flex items-center justify-between">
@@ -41,13 +41,13 @@
 		{@render children()}
 	</main>
 
-	<footer class="mt-12 bg-gray-800 text-white">
-		<div class="mx-auto max-w-7xl px-4 py-8">
-			<div class="mt-8 border-t border-gray-700 pt-8">
+	<footer class="inset-x-0 bottom-0 mt-12 bg-gray-800 text-white">
+		<div class="mx-auto max-w-7xl px-2 py-8">
+			<div class="mt-4 border-t border-gray-700 pt-4">
 				<p class="text-center text-gray-400">
 					&copy; {new Date().getFullYear()} IIITH Student Parliament. All rights reserved.
 				</p>
-				<h3 class="mb-4 text-center text-lg font-semibold">
+				<h3 class="mb-2 text-center text-lg font-semibold">
 					parliament@students.iiit.ac.in
 				</h3>
 			</div>
